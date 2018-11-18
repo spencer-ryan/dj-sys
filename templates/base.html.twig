@@ -10,6 +10,37 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">DubHub</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item {{ (app.request.get('_route') == 'home') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ path('home') }}">Home <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav">
+                {% if app.user %}
+                <li class="nav-item">
+                    <a class="nav-link" href="#">{{ app.user.displayName }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item {{ (app.request.get('_route') == 'app_register') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ path('app_register') }}">Register</a>
+                </li>
+                <li class="nav-item {{ (app.request.get('_route') == 'app_login') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ path('app_login') }}">Login</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
     <div class="container">
         {% block body %}{% endblock %}
     </div>

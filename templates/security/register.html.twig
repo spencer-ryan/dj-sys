@@ -1,16 +1,35 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <style>
+        .col-centered{
+            float: none;
+            margin: 0 auto;
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
-    <h1>Register</h1>
+    <div class="row" style="margin-top: 2rem;">
+        <div class="col-md-6 col-centered">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="h3 mb-3 font-weight-normal">Register</h1>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form) }}
+                    {{ form_row(form.displayName) }}
+                    {{ form_row(form.email) }}
+                    {{ form_row(form.plainPassword.first) }}
+                    {{ form_row(form.plainPassword.second) }}
 
-    {{ form_start(form) }}
-    {{ form_row(form.displayName) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.plainPassword.first) }}
-    {{ form_row(form.plainPassword.second) }}
+                    <br/>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <br/>
-    <button class="btn btn-primary" type="submit">Submit</button>
-    {{ form_end(form) }}
 
 {% endblock %}
