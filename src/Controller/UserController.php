@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends Controller
 {
     /**
-     * @Route("/view/{user}")
+     * @Route("/view/{user}", name="app_user_view")
      * @param User $user
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
