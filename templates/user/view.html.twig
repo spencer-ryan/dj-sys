@@ -1,4 +1,21 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    {{ dump(user) }}
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    {% if self %}
+                        <h1>My Profile</h1>
+                    {% else %}
+                        <h1>{{ user.displayName }}'s Profile</h1>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    Email: {{ user.email }}<br/>
+                    Display Name: {{ user.displayName }}<br/>
+                    Roles: {% for role in user.roles %}{{ role }}{% if not loop.last %},{% endif %} {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

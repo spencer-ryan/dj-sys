@@ -21,18 +21,24 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends Controller
 {
     /**
-     * @Route("/view/{user}")
+     * @Route("/view/{user}", name="app_user_view")
      * @param User $user
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function view(User $user = null)
     {
+        $tokenUser = $this->get('security.token_storage')->getToken()->getUser();
+        $self = false;
         if (is_null($user)) {
-            $user = $this->get('security.token_storage')->getToken()->getUser();
+            $user = $tokenUser;
+            $self = true;
+        } elseif ($user->getId() === $tokenUser->getId()) {
+            $self = true;
         }
 
         return $this->render('user/view.html.twig', [
             'user' => $user,
+            'self' => $self,
         ]);
     }
 }
