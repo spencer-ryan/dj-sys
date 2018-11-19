@@ -27,12 +27,18 @@ class UserController extends Controller
      */
     public function view(User $user = null)
     {
+        $tokenUser = $this->get('security.token_storage')->getToken()->getUser();
+        $self = false;
         if (is_null($user)) {
-            $user = $this->get('security.token_storage')->getToken()->getUser();
+            $user = $tokenUser;
+            $self = true;
+        } elseif ($user->getId() === $tokenUser->getId()) {
+            $self = true;
         }
 
         return $this->render('user/view.html.twig', [
             'user' => $user,
+            'self' => $self,
         ]);
     }
 }
